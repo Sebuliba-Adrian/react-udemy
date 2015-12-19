@@ -1,0 +1,16 @@
+var express = require("express")
+  , path = require("path")
+  , bodyParser = require("body-parser");
+
+var app = express();
+
+app.set("port", (process.env.PORT || 4444));
+
+app.use(express.static(path.join(__dirname, "public")));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
+app.listen(app.get("port"), function() {
+  console.log("server started on ", app.get("port"));
+});

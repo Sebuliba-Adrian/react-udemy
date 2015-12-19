@@ -1,0 +1,24 @@
+{
+  "name": "react-udemy",
+  "version": "1.0.0",
+  "description": "react course from udemy",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roydelgado/react-udemy.git"
+  },
+  "author": "Roy D",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/roydelgado/react-udemy/issues"
+  },
+  "homepage": "https://github.com/roydelgado/react-udemy#readme",
+  "dependencies": {
+    "body-parser": "*",
+    "express": "*"
+  }
+}
