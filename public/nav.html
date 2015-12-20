@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Nav</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+<body>
+  <main id="main"></main>
+
+  <script src="https://fb.me/react-0.14.3.js"></script>
+  <script src="https://fb.me/react-dom-0.14.3.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.25/browser.min.js"></script>
+  <script type="text/babel">
+    const main = document.getElementById("main");
+
+    let Layout = React.createClass({
+      getInitialState() {
+        return {
+          current: 0,
+          content: 'Welcome'
+        }
+      },
+
+      selectItem(index) {
+        const text = [
+          "Welcome back!",
+          "Nothing much to say about me",
+          "Jokes on you!",
+          "Some ideas here and there"
+        ];
+
+        this.replaceState({
+          current: index,
+          content: text[index]
+        });
+      },
+
+      render() {
+        const self = this;
+
+        return (
+          <section>
+            <ul className="list-inline">
+              {this.props.menuItems.map((item, index) => {
+                let style = "";
+
+                if (self.state.current === index) {
+                  style = "bg-success"
+                }
+
+                return (
+                  <li
+                    key={item}
+                    className={"lead "+style}
+                    onClick={self.selectItem.bind(self, index)}>
+                    {item}
+                  </li>
+                )
+              })}
+            </ul>
+            <article className="h4 bg-info">{this.state.content}</article>
+          </section>
+        )
+      }
+    });
+
+    ReactDOM.render(<Layout menuItems={["Home", "About", "Lulz", "Blog"]} />, main);
+  </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lifecycle Component</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+<body>
+  <section id="container"></section>
+
+  <script src="https://fb.me/react-0.14.3.js"></script>
+  <script src="https://fb.me/react-dom-0.14.3.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.25/browser.min.js"></script>
+  <script type="text/babel">
+    const container = document.getElementById('container');
+    let LifeComponent = React.createClass({
+      getDefaultProps() {
+        console.log("Invoking getDefaultProps ");
+        return {
+          msg: "Booyah!"
+        }
+      },
+
+      getInitialState() {
+        console.log("Invoking getInitialState ");
+        return null;
+      },
+
+      componentWillMount() {
+        console.log("Invoking componentWillMount")
+      },
+
+      componentDidMount() {
+        console.log("Invoking componentDidMount")
+      },
+
+      render() {
+        console.log("Rendering component");
+        return (
+          <div>
+            <h1>{this.props.msg}</h1>
+            <button onClick={this.updateProps}>Change Property</button>
+            <button onClick={this.unmount}>Unmount Component</button>
+          </div>
+        )
+      },
+
+      componentWillReceiveProps() {
+        console.log("Invoking componentWillReceiveProps");
+      },
+
+      shouldComponentUpdate() {
+        console.log("shouldComponentUpdate");
+        return true;
+      },
+
+      componentWillUpdate() {
+        console.log("componentWillUpdate")
+      },
+
+      componentDidUpdate() {
+        console.log("componentDidUpdate")
+      },
+
+      componentWillUnmount() {
+        console.log("componentWillUnmount");
+      },
+
+      updateProps() {
+        ReactDOM.render(<LifeComponent msg="Oh Snap!" />, container);
+      },
+
+      unmount() {
+        ReactDOM.unmountComponentAtNode(container);
+      }
+    });
+
+    ReactDOM.render(<LifeComponent />, container);
+  </script>
+</body>
+</html>

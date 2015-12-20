@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dummy Component</title>
+  <title>Form Component</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 <body>
@@ -43,13 +43,13 @@
         let {firstName, lastName, email} = this.refs;
 
         if (!firstName.value || !lastName.value || !email.value) {
-          this.setState({
+          this.replaceState({
             alertType: "danger",
             alertMessage: "Missing fields!",
             showAlert: true
           });
         } else {
-          this.setState({
+          this.replaceState({
             alertType: "success",
             alertMessage: "Hello "+firstName.value + " " + lastName.value + " " + email.value,
             showAlert: true

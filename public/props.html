@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Props</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+<body>
+  <section id="container"></section>
+
+  <script src="https://fb.me/react-0.14.3.js"></script>
+  <script src="https://fb.me/react-dom-0.14.3.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.25/browser.min.js"></script>
+  <script type="text/babel">
+    const container = document.getElementById('container');
+
+    let MyComponent = React.createClass({
+      getDefaultProps() {
+        return {
+          msg: "Hello!"
+        }
+      },
+      propTypes: {
+        //will throw error because msg is not a number:
+        msg: React.PropTypes.number,
+        array: React.PropTypes.array
+      },
+      render() {
+        const data = this.props.array.map((value) => {
+          return <span key={"data-"+value}>{value} </span>
+        });
+
+        return (
+          <article key="meh" >
+            <h1>My prop 'msg': {this.props.msg}</h1>
+            <p>array: {data}</p>
+          </article>
+        )
+      }
+    });
+
+    ReactDOM.render(<MyComponent array={["banana", "orange", 34]}/>, container);
+  </script>
+</body>
+</html>
