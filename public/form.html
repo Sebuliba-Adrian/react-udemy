@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dummy Component</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+<body>
+  <main class="container">
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <h1 class="page-header">Register</h1>
+        <div id="regForm"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://fb.me/react-0.14.3.js"></script>
+  <script src="https://fb.me/react-dom-0.14.3.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.25/browser.min.js"></script>
+  <script type="text/babel">
+    var AlertBox = React.createClass({
+      render() {
+        return <div className={"alert alert-"+this.props.type}>{this.props.msg}</div>
+      }
+    });
+
+    var RegForm = React.createClass({
+      getInitialState() {
+        return {
+          showAlert: false,
+          alertType: "",
+          alertMessage: ""
+        }
+      },
+
+      _resetState() {
+        this.replaceState(this.getInitialState());
+      },
+
+      register(e) {
+        e.preventDefault();
+
+        let {firstName, lastName, email} = this.refs;
+
+        if (!firstName.value || !lastName.value || !email.value) {
+          this.setState({
+            alertType: "danger",
+            alertMessage: "Missing fields!",
+            showAlert: true
+          });
+        } else {
+          this.setState({
+            alertType: "success",
+            alertMessage: "Hello "+firstName.value + " " + lastName.value + " " + email.value,
+            showAlert: true
+          });
+
+          firstName.value = "";
+          lastName.value = "";
+          email.value = "";
+
+          setTimeout(this._resetState, 2000);
+        }
+      },
+
+      render() {
+        return (
+          <form key="simple-form" onSubmit={this.register}>
+            { this.state.showAlert ? <AlertBox msg={this.state.alertMessage} type={this.state.alertType}/> : null }
+            <div className="form-group">
+              <label htmlFor="firstName">First Name: </label>
+              <input className="form-control" placeholder="First Name" ref="firstName" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="lastName">Last Name: </label>
+              <input className="form-control" placeholder="Last Name" ref="lastName" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">Email: </label>
+              <input className="form-control" placeholder="Email" ref="email" />
+            </div>
+            <input type="submit" className="btn btn-primary" value="Submit" />
+          </form>
+        )
+      }
+    });
+
+    var container = document.getElementById('regForm');
+
+    ReactDOM.render(<RegForm />, container);
+  </script>
+</body>
+</html>
