@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Products - React AJAX</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+<body>
+  <main class="container">
+    <section class="row">
+      <section class="col-md-6 col-md-offset-3">
+        <h2>Products</h2>
+        <div id="products"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://fb.me/react-0.14.3.js"></script>
+  <script src="https://fb.me/react-dom-0.14.3.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.25/browser.min.js"></script>
+  <script type="text/babel">
+    let Products = React.createClass({
+      getDefaultProps() {
+        return {
+          updateDelay: 2000
+        }
+      },
+
+      getInitialState() {
+        return {
+          productsData: [],
+          url: "/api/products"
+          //url: "http://www.json-generator.com/api/json/get/bVeHFAplIO"
+        }
+      },
+
+      render() {
+        return (
+          <div>
+            <ProductForm />
+            <ProductList productsData={this.state.productsData} />
+          </div>
+        )
+      },
+
+      componentDidMount() {
+        this._loadProductData();
+      },
+
+      _loadProductData(){
+        $.ajax({
+          url: this.state.url,
+          dataType: "json",
+          cache: false,
+          success: function(data) {
+            this.setState({
+              productsData: data
+            })
+          }.bind(this),
+          error: function(xhr, status, error) {
+            alert(status)
+          }
+        })
+      }
+
+    });
+
+    let ProductForm = React.createClass({
+      render() {
+        return (
+          <div>
+            Form
+          </div>
+        )
+      }
+    });
+
+    let ProductList = React.createClass({
+      render() {
+        let products = this.props.productsData.map((p) => {
+          return <Product key={p.name} info={p} />
+        });
+
+        return <div>{products}</div>
+      }
+    });
+
+    let Product = React.createClass({
+      render() {
+        let product = this.props.info;
+        return (
+          <div className="well product">
+            <div className="row">
+              <div className="col-md-4">
+                <img className="img-responsive" src={product.image_url} />
+              </div>
+              <div className="col-md-8">
+                <h3>{product.name}</h3>
+                <p>{product.description}</p>
+              </div>
+            </div>
+          </div>
+        )
+      }
+    });
+
+    ReactDOM.render(
+      <Products />,
+      products
+    )
+  </script>
+</body>
+</html>
