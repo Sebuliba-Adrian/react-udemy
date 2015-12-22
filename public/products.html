@@ -7,7 +7,7 @@
 <body>
   <main class="container">
     <section class="row">
-      <section class="col-md-6 col-md-offset-3">
+      <section class="col-md-12">
         <h2>Products</h2>
         <div id="products"></div>
       </section>
@@ -36,9 +36,13 @@
 
       render() {
         return (
-          <div>
-            <ProductForm />
-            <ProductList productsData={this.state.productsData} />
+          <div className="row">
+            <div className="col-md-6">
+              <ProductForm onProductSubmit={this.handleProductSubmit} />
+            </div>
+            <div className="col-md-6">
+              <ProductList productsData={this.state.productsData} />
+            </div>
           </div>
         )
       },
@@ -60,17 +64,93 @@
           error: function(xhr, status, error) {
             alert(status)
           }
-        })
+        });
+      },
+
+      handleProductSubmit(product) {
+        let products = this.state.productsData,
+          newProducts = products.concat([product]);
+          this.setState({productsData: newProducts});
+
+        $.ajax({
+          url: this.state.url,
+          dataType: "json",
+          type: 'POST',
+          data: product,
+          success: function(data) {
+            console.log("POST success", data);
+
+            this.setState({
+              productsData: data
+            })
+          }.bind(this),
+          error: function(xhr, status, error) {
+            alert(status)
+          }
+        });
       }
 
     });
 
     let ProductForm = React.createClass({
+      handleSubmit(e) {
+        e.preventDefault();
+
+        let product = {
+          id : this.refs.id.value.trim(),
+          name : this.refs.name.value.trim(),
+          description : this.refs.description.value.trim(),
+          price : this.refs.price.value.trim(),
+          buy_url : this.refs.buy_url.value.trim(),
+          image_url : this.refs.image_url.value.trim()
+        };
+
+        if (!product.id || !product.name) {
+          alert("Missing ID or Name");
+          return;
+        }
+
+        this.props.onProductSubmit(product);
+
+        this.refs.id.value = "";
+        this.refs.name.value = "";
+        this.refs.description.value = "";
+        this.refs.price.value = "";
+        this.refs.buy_url.value = "";
+        this.refs.image_url.value = "";
+
+      },
+
       render() {
         return (
-          <div>
-            Form
-          </div>
+          <form onSubmit={this.handleSubmit} >
+            <h3>Add Product</h3>
+            <div className="form-group">
+              <label>Product ID</label>
+              <input className="form-control" placeholder="Enter ID" ref="id" />
+            </div>
+            <div className="form-group">
+              <label>Product Name</label>
+              <input className="form-control" placeholder="Product Name" ref="name" />
+            </div>
+            <div className="form-group">
+              <label>Description</label>
+              <input className="form-control" placeholder="Description" ref="description" />
+            </div>
+            <div className="form-group">
+              <label>Price</label>
+              <input className="form-control" placeholder="MSRP" ref="price" />
+            </div>
+            <div className="form-group">
+              <label>Buy URL</label>
+              <input className="form-control" placeholder="http://www.example.com" ref="buy_url" />
+            </div>
+            <div className="form-group">
+              <label>Image URL</label>
+              <input className="form-control" placeholder="http://example.com/product.jpg" ref="image_url" />
+            </div>
+            <input type="submit" value="Submit" />
+          </form>
         )
       }
     });
@@ -95,8 +175,9 @@
                 <img className="img-responsive" src={product.image_url} />
               </div>
               <div className="col-md-8">
-                <h3>{product.name}</h3>
+                <h3><a href={product.buy_url} target="_blank">{product.name}</a></h3>
                 <p>{product.description}</p>
+                <small>$ {product.price}</small>
               </div>
             </div>
           </div>

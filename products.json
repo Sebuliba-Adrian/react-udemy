@@ -38,5 +38,13 @@
       "price": 999.99,
       "buy_url": "http://www.bestbuy.com/site/apple-ipad-mini-3-wi-fi-16gb-gold/3325038.p?id=1219090454897&skuId=3325038&ref=06&loc=01&ci_src=14110944&ci_sku=3325038&extensionType=pla:g&s_kwcid=PTC!pla!!!60639874488!g!!52694888839&kpid=3325038&k_clickid=5edb3a2c-4010-4a99-b4b8-f6a2a46ac164&lsft=ref:212,loc:1&ksid=5edb3a2c-4010-4a99-b4b8-f6a2a46ac164&ksprof_id=12&ksaffcode=pg454&ksdevice=c",
       "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLfuMJeahsUDc6ZpSMbYqkY2dSCnCCaD3VGoKWpoQYtp1V3dyW"
+   },
+   {
+      "id": "PS4",
+      "name": "PlayStation 4 Bundle (PS4)",
+      "description": "PlayStation 4 UNCHARTED: The Nathan Drake Collection Console Disc Bundle (PS4)",
+      "price": "349.00",
+      "buy_url": "http://www.walmart.com/ip/PlayStation-4-UNCHARTED-The-Nathan-Drake-Collection-Console-Disc-Bundle-PS4/47376059",
+      "image_url": "http://ll-us-i5.wal.co/dfw/dce07b8c-b3c0/k2-_cd8ab3e1-4632-4cad-8c30-d9b7215217b9.v1.jpg-51586d0b5cd88d2b281e5e0514c6db4e0c748b1e-webp-450x450.webp"
    }
 ]
