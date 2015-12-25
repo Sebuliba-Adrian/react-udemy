@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Two-way Databinding</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+<body>
+  <main class="container">
+    <section class="row">
+      <div class="col-md-12">
+        <div id="container"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://fb.me/react-with-addons-0.14.3.js"></script>
+  <script src="https://fb.me/react-dom-0.14.3.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.25/browser.min.js"></script>
+  <script type="text/babel">
+    const MyComponent = React.createClass({
+      mixins: [React.addons.LinkedStateMixin],
+
+      getInitialState() {
+        return {
+          value: 'Initial value'
+        }
+      },
+
+      render() {
+        return (
+          <div>
+            <h4>{this.state.value}</h4>
+            <MyInput  valueLink={this.linkState('value')} />
+          </div>
+        )
+      }
+    });
+
+    const MyInput = React.createClass({
+      render() {
+        return <input valueLink={this.props.valueLink} />
+      }
+    });
+
+    ReactDOM.render(<MyComponent />, container)
+  </script>
+</body>
+</html>
