@@ -118,6 +118,7 @@
             self.setState({
               repoData: null
             });
+            alert(xhr.statusText);
           }
         });
       }
@@ -174,9 +175,12 @@
 
     const Repos = React.createClass({
       render() {
-        let RepoItems;
+        let showRepos = true
+          , Title
+          , RepoItems;
 
-        if (this.props.repos) {
+        if (this.props.repos.length) {
+          Title = <h2>Public Repos:</h2>;
           RepoItems = this.props.repos.map((repo, index) => {
             return (
               <RepoItem
@@ -187,13 +191,13 @@
             );
           });
         } else {
-          RepoItems = <RepoItem name="" key="" description="" url="" />
+          showRepos = false;
         }
 
         return (
           <div>
-            <h2>Public Repos:</h2>
-            {RepoItems}
+              {Title}
+              {RepoItems}
           </div>
         )
       }
